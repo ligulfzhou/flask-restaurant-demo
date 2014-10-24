@@ -1,6 +1,6 @@
 from . import db
 
-class Role(db.model):
+class Role(db.Model):
     __tablename__   = 'roles'
     id              = db.Column(db.Integer, primary_key = True)
     name            = db.Column(db.string(64), unique = True)
@@ -21,20 +21,19 @@ class Order(db.Model):
     total           = db.Column(db.Float)
     address         = db.Column(db.Text)
     orderItems      = db.relationship('OrderItem', backref = 'order')
-    user_id         = db.Column(db.Integer, db.ForeignKey('users.id', lazy = 'dynamic')
-
+    user_id         = db.Column(db.Integer, db.ForeignKey('users.id'), lazy = 'dynamic')
 
 class OderItem(db.Model):
     __tablename__   = 'orderItems'
     id              = db.Column(db.Integer, primary_key = True)
-    restaurant_id   = db.Column(db.Integer, db.ForeignKey('restaurants.id')
-    order_id        = db.Column(db.Integer, db.ForeignKey('orders.id')
+    restaurant_id   = db.Column(db.Integer, db.ForeignKey('restaurants.id'))
+    order_id        = db.Column(db.Integer, db.ForeignKey('orders.id'))
     count           = db.Column(db.Integer)
 
 class FoodItem(db.Model):
     __tablename__   = 'foodItems'
     id              = db.Column(db.Integer, primary_key = True)
-    restauran_id    = db.Column(db.Integer, db.ForeignKey = 'restaurants.id')
+    restaurant_id   = db.Column(db.Integer, db.ForeignKey('restaurant.id')) 
     price           = db.Column(db.Float, required = True) #--------------------
     image           = db.Column(db.Text)
     name            = db.Column(db.String(64))
