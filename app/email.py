@@ -7,13 +7,6 @@ def send_async_email(app, msg):
     with app.app_context():
         mail.send(msg)
 
-#--------------------------------------------------------------------
-#here I can write dead that some one have shopped in your restaurant
-#maybe I can send the time --> in the subject 
-
-
-#-------------to be edited-------------------------------------------
-#--------------------------------------------------------------------
 def send_email(to, subject, template, **kwargs):
     app = current_app._get_current_object()
     msg = Message(app.config['FLASK_MAIL_SUBJECT_PREFIX'] + ' ' + subject,

@@ -11,7 +11,8 @@ migrate = Migrate(app, db)
 
 
 def make_shell_context():
-    return dict(app=app, db=db, User=User, Role=Role, Order=Order, OrderItem=OrderItem, FoodItem=FoodItem, Restaurant=Restaurant)
+    return dict(app=app, db=db, User=User, Role=Role, Order=Order, \
+    	OrderItem=OrderItem, FoodItem=FoodItem, Restaurant=Restaurant)
 
 manager.add_commond("shell",Shell(make_context = make_shell_context))
 manager,add_commond("db", MigrateCommond)
@@ -27,3 +28,4 @@ def test():
     
 if __name__ == '__main__':
     manager.run()
+    

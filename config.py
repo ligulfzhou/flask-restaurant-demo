@@ -8,11 +8,14 @@ class Config:
     MAIL_SERVER = 'smtp.googlemail.com'
     MAIL_PORT = 587
     MAIL_USE_TLS = True
-    MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
-    MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
-    FLASK_MAIL_SUBJECT_PREFIX = '[************************]'
+#    MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
+    MAIL_USERNAME = 'donsol53@gmail.com'
+#   MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
+    MAIL_PASSWORD = '153153153'
+    FLASK_MAIL_SUBJECT_PREFIX = '[EYUNLE]'
     FLASK_MAIL_SENDER = 'Ligulf Zhou<ligulfzhou53@gmail.com>'
-    FLASK_ADMIN = os.environ.get('FLASK_ADMIN')
+#    FLASK_ADMIN = os.environ.get('FLASK_ADMIN')
+    FLASK_ADMIN = '798855642@qq.com'
 
     @staticmethod
     def init_app(app):
