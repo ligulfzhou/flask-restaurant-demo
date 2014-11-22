@@ -26,7 +26,7 @@ def get_restaurants():
 		})
 
 
-@api.route('/restaurants/<id>')
+@api.route('/restaurants/<int:id>')
 def get_restaurant(id):
 	restaurant = Restaurant.query.get_or_404(id)
 	return jsonify(restaurant.to_json())
@@ -45,10 +45,10 @@ def get_restaurant_foodItems(id):
 @api.route('/restaurants/<int:id>/orderItems')
 def get_restaurant_orderItems(id):
 	restaurant 	= Restaurant.query.get_or_404(id)
-	#orderItems 	= restaurant.orderItems
-	orderItems 	= OrderItem.query.filter_by(restaurant_id=id).all()
+	orderItems 	= restaurant.orderItems
+	#orderItems 	= OrderItem.query.filter_by(restaurant_id=id).all()
 	return jsonify({
-			'orderItems' : [orderItem.to_json() for orderItem in foodItems]
+			'orderItems' : [orderItem.to_json() for orderItem in orderItems]
 		})
 
 

@@ -24,7 +24,7 @@ def get_user_orders(id):
 	if pagination.has_prev:
 		next = url_for('api.get_user_orders', page=page+1, _external=True)
 	return jsonify({
-		'order' : [order.tojson() for order in orders],
+		'order' : [order.to_json() for order in orders],
 		'prev' : prev,
 		'next' : next,
 		'count' : pagination.total

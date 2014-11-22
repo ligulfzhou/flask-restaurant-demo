@@ -270,7 +270,7 @@ class Order(db.Model):
             'total' : self.total,
             'timestamp' : self.timestamp,
             'done' : self.done,
-            'orderItems' : url_for('api.get_order_orderitems', id=self.id, _external=True),
+            'orderItems' : url_for('api.get_order_orderItems', id=self.id, _external=True),
             'user' : url_for('api.get_user', id=self.user_id, external=True),
             'restaurant' : url_for('api.get_restaurant', id=self.restaurant_id,external=True)
         }
@@ -296,11 +296,12 @@ class OrderItem(db.Model):
 
     def to_json(self):
         json_orderitem = {
-            'url' : url_for('api.get_orderitem', id=self.id, _external=True),
+            'url' : url_for('api.get_orderItems', id=self.id, _external=True),
             'count' : self.count,
             'restaurant_id' : url_for('api.get_restaurant', id=self.restaurant_id, _external=True),
             'user_id' : url_for('api.get_user', id=self.user_id, _external=True)
         }
+        return json_orderitem
 
 
     def from_json(json_orderitem):
@@ -343,7 +344,7 @@ class Restaurant(db.Model):
     foodItems       = db.relationship('FoodItem', backref = 'restaurant', lazy = 'dymamic')
     orderItems      = db.relationship('OrderItem', backref = 'restaurant', lazy = 'dynamic')
     user_id         = db.Column(db.Integer, db.ForeignKey('users.id'))
-    orders          = db.relationship('Order', backref='Restaurant', lazy='dynamic')
+    orders          = db.relationship('Order', backref='restaurant', lazy='dynamic')
 
     def to_json(self):
         json_restaurant = {

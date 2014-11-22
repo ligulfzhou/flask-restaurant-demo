@@ -1,7 +1,7 @@
 from flask import jsonify, request, g, current_app, url_for
 from .. import db
 from . import api
-from ..models import Restaurant, User, Order, Permission
+from ..models import Restaurant, User, Order, Permission, OrderItem
 from .decorators import permission_required
 
 
@@ -17,7 +17,7 @@ def get_order(id):
 def get_order_orderItems(id):
 	order 		= Order.query.get_or_404(id)
 	#orderItems 	= order.orderItems
-	orderItems 	= orderItem.query.filter_by(order_id=id).all()
+	orderItems 	= OrderItem.query.filter_by(order_id=id).all()
 	return jsonify({
 			'orderItems' : [orderItem.to_json() for orderItem in orderItems]
 		})

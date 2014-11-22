@@ -37,7 +37,7 @@ def index():
 
 
 #-----------------------------------------------------------
-@main.route('/search')
+@main.route('/search', methods=['GET','POST'])
 def search():
     form = SearchRestaurantOrCity()
     if form.validate_on_submit():
@@ -150,8 +150,9 @@ def add_to_cart(id):
         session['cart'].append(id)
         flash('you add one fooditem')
     else:
-        cart=[]
-        cart.append(id)
+        session['cart'] = []
+        session['cart'].append(id)
+
     return redirect('/cart')
 
 
@@ -171,3 +172,32 @@ def cart():
             else:
                 food_dict[fooditem.id] = {'count':1, 'price':fooditem.price, 'name':fooditem.name}
     return render_template("cart.html", cart_items = food_dict, total = total_cost)
+
+
+
+@main.route('/checkout')
+@login_required
+def checkout():
+    '''
+        check whether it is empty
+    '''
+    if 'cart' not in session:
+        flash('empty cart')
+        redirect('.index')
+    else:
+        food_dict = {}
+        cart_list = session['cart']
+        for item in cart_list:
+            if item in food_dict:
+                food_dict[item] += 1
+            else:
+                food_dict[item] = 1
+        for item in food_dict:
+            fooditem = FoodItem.query.filter_by(id=item).first()
+            count = food_dict[item]
+            orderItem = OrderItem(fooditem=fooditem)
+
+
+
+
+#                  --------------------------
