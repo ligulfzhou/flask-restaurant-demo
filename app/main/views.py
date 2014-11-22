@@ -1,5 +1,5 @@
 from flask import render_template, redirect, url_for, abort, flash, request,\
-    current_app, make_response
+    current_app, make_response, session
 from flask.ext.login import login_required, current_user
 from flask.ext.sqlalchemy import get_debug_queries
 from . import main
@@ -163,11 +163,11 @@ def cart():
     if 'cart' in session:
         cart_list = session['cart']
         for item in cart_list:
-            melon= model.get_melon_by_id(item)
-            total_cost += melon.price
-            if melon.id in melon_dictionary:
-                melon_dictionary[melon.id]["Quantity"] += 1
-            else:
-                melon_dictionary[melon.id] = {"Name": melon.common_name,"Quantity":  1, "Price": melon.price} 
+            fooditem    = FoodItem.query.filter_by(id=item).first()
+            total_cost  += fooditem.price
 
-    return render_template("cart.html", cart_items = melon_dictionary, total = total_cost)
+            if fooditem.id in food_dict:
+                food_dict[fooditem.id]['count'] += 1
+            else:
+                food_dict[fooditem.id] = {'count':1, 'price':fooditem.price, 'name':fooditem.name}
+    return render_template("cart.html", cart_items = food_dict, total = total_cost)
