@@ -1,0 +1,9 @@
+<ul class="orders">
+    {% for order in orders %}
+    <li class="order">
+        <div>{{ order.total }}</div>
+        <div>{{ order.timestamp }}</div>
+        <div>order, done? : {{ order.done }}</div>
+    </li>
+    {% endfor %}
+</ul>

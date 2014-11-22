@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %} Search Result {% endblock %}
+
+{% import "bootstrap/wtf.html" as wtf %}
+{% import "_macros.html" as macros %}
+
+
+{% block page_content %}
+
+
+<div>
+	{{ wtf.quick_form(form) }}
+</div>
+
+<div class="page-header">
+    <h1> Search Result </h1>
+</div>
+
+<div>
+    {% include '_restaurants.html' %}
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+{% endblock %}
