@@ -301,7 +301,6 @@ class OrderItem(db.Model):
             'restaurant_id' : url_for('api.get_restaurant', id=self.restaurant_id, _external=True),
             'user_id' : url_for('api.get_user', id=self.user_id, _external=True)
         }
-        return json_orderitem
 
 
     def from_json(json_orderitem):
