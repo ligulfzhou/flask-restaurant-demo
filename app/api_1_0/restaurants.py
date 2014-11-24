@@ -4,7 +4,7 @@ from . import api
 from ..models import Restaurant, User, FoodItem, OrderItem, Order, OrderItem
 from .decorators import permission_required
 
-@api.route('/restaurants/')
+@api.route('/restaurants')
 def get_restaurants():
 	page = request.args.get('page', 1, type=int)
 	pagination = Restaurant.query.paginate(
@@ -35,8 +35,8 @@ def get_restaurant(id):
 @api.route('/restaurants/<int:id>/foodItems')
 def get_restaurant_foodItems(id):
 	restaurant 	= Restaurant.query.get_or_404(id)
-	#foodItems 	= restaurant.foodItems
-	foodItems 	= FoodItem.query.filter_by(restaurant_id=id).all()
+	foodItems 	= restaurant.foodItems
+	#foodItems 	= FoodItem.query.filter_by(restaurant_id=id).all()
 	return jsonify({
 			'foodItems' : [foodItem.to_json() for foodItem in foodItems]
 		})
@@ -55,8 +55,8 @@ def get_restaurant_orderItems(id):
 @api.route('/restaurants/<int:id>/orders')
 def get_restaurant_orders(id):
 	restaurant 	= Restaurant.query.get_or_404(id)
-	#orders 		= restaurant.orders
-	orders 		= Order.query.filter_by(restaurant_id=id).all()
+	orders 		= restaurant.orders
+	#orders 		= Order.query.filter_by(restaurant_id=id).all()
 	return jsonify({
 			'orders' : [order.to_json() for order in orders]
 		})
