@@ -1,12 +1,18 @@
-{% extends "bootstrap/base.html" %}
-
-{% block title %}Ejile{% endblock %}
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 {% block head %}
-{{ super() }}
+
+<title>{% block title %}Ejile{% endblock %}</title>
+
 <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
 <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap.css') }}">
 
 {% endblock %}
 
@@ -20,17 +26,23 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{{ url_for('main.index') }}">Flasky</a>
+            <a class="navbar-brand" href="{{ url_for('main.index') }}">Ejile</a>
         </div>
         <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li><a href="{{ url_for('main.index') }}">Home</a></li>
-                {% if current_user.is_authenticated() %}
-                <li><a href="{{ url_for('main.user', username=current_user.username) }}">Profile</a></li>
-                {% endif %}
+        
+
+        <ul class="nav navbar-nav">
+  
+    <li><a href="{{ url_for('main.index') }}">Home</a></li>
+
             </ul>
+
             <ul class="nav navbar-nav navbar-right">
+
+
             <li><a href="/cart"><img id="melon-cart" src="/static/favicon.ico"> My Melon Cart</a></li>
+
+
                 {% if current_user.is_authenticated() %}
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -38,7 +50,10 @@
                         Account <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
-                         {% if current_user.can(Permission.SALESMANAGER) and not current_user.can(Permission.STAFF) %}
+
+
+
+                        {% if current_user.can(Permission.SALESMANAGER) and not current_user.can(Permission.STAFF) %}
                         <li><a href="{{ url_for('salesmanager.index') }}">manage</a></li>
                         {% endif %}
                         {% if current_user.can(Permission.STAFF) %}
@@ -72,6 +87,7 @@
 {% endblock %}
 
 {% block scripts %}
-{{ super() }}
+
 {{ moment.include_moment() }}
+
 {% endblock %}

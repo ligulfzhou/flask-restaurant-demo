@@ -5,7 +5,7 @@
 <div>fooditem name : {{ fooditem.name }}</div>
 <div>fooditem price : {{ fooditem.price }}</div>
 <div>fooditem description : {{ fooditem.description }}</div>
-
+<div> <a href="{{url_for('.add_to_cart', id=fooditem.id)}}"> <button>add to cart </button></a>
 
 <h2>   the comments need to be implemented  </h2>
 
