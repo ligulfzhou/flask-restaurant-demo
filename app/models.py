@@ -180,7 +180,7 @@ class User(UserMixin, db.Model):
 
     #is_staff --> we allow   both  staff and administrator
     def is_staff(self):
-        #return self.can(Permission.STAFF) and not self.can(Permission.ADMINISTER)
+        #return self.can(Permission.STAFF) and not self.can(dPermission.ADMINISTER)
         return self.can(Permission.STAFF)
 
     def is_user(self):

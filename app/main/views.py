@@ -129,8 +129,8 @@ def edit_profile_admin(id):
 @main.route('/restaurants/<id>')
 def restaurants(id):
     restaurant  = Restaurant.query.filter_by(id=id).first()
-    #fooditems   = restaurant.fooditems
-    fooditems   = FoodItem.query.filter_by(restaurant=restaurant).all()
+    fooditems   = restaurant.foodItems
+    #fooditems   = FoodItem.query.filter_by(restaurant=restaurant).all()
     return render_template('restaurant.html', restaurant=restaurant, fooditems=fooditems)
 
 
@@ -202,7 +202,8 @@ def checkout():
 
 #                  --------------------------
 
-@main.route('/request_salesmanager/<int:id>')
+@main.route('/request_salesmanager')
 @login_required
-def request_salesmanager(id):
+def request_salesmanager():
+
     return 

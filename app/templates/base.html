@@ -40,7 +40,7 @@
                     <ul class="dropdown-menu">
                          
                          {% if current_user.is_user() %}
-                         <li> <a href="{{ url_for('.request_salesmanager', id=current_user.id) }}"></a>
+                         <li> <a href="{{ url_for('main.request_salesmanager') }}"></a>
                             {% endif %}
                          {% if current_user.is_salesmanager()  %}
                         <li><a href="{{ url_for('salesmanager.index') }}">manage</a></li>
