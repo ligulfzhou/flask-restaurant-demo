@@ -201,3 +201,8 @@ def checkout():
 
 
 #                  --------------------------
+
+@main.route('/request_salesmanager/<int:id>')
+@login_required
+def request_salesmanager(id):
+    return 

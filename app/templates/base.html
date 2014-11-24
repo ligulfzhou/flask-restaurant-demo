@@ -20,17 +20,17 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{{ url_for('main.index') }}">Flasky</a>
+            <a class="navbar-brand" href="{{ url_for('main.index') }}">EJILLE</a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li><a href="{{ url_for('main.index') }}">Home</a></li>
+                <li><a href="{{ url_for('main.index') }}">home</a></li>
                 {% if current_user.is_authenticated() %}
                 <li><a href="{{ url_for('main.user', username=current_user.username) }}">Profile</a></li>
                 {% endif %}
             </ul>
             <ul class="nav navbar-nav navbar-right">
-            <li><a href="/cart"><img id="melon-cart" src="/static/favicon.ico"> My Melon Cart</a></li>
+            <li><a href="/cart"><img id="ejile-cart" src="/static/favicon.ico"> My Cart</a></li>
                 {% if current_user.is_authenticated() %}
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -38,7 +38,11 @@
                         Account <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
-                         {% if current_user.can(Permission.SALESMANAGER) and not current_user.can(Permission.STAFF) %}
+                         
+                         {% if current_user.is_user() %}
+                         <li> <a href="{{ url_for('.request_salesmanager', id=current_user.id) }}"></a>
+                            {% endif %}
+                         {% if current_user.is_salesmanager()  %}
                         <li><a href="{{ url_for('salesmanager.index') }}">manage</a></li>
                         {% endif %}
                         {% if current_user.can(Permission.STAFF) %}

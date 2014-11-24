@@ -175,10 +175,17 @@ class User(UserMixin, db.Model):
         return self.can(Permission.ADMINISTER)
 
     def is_salesmanager(self):
-        return self.can(Permission.MANAGER)
+        return self.can(Permission.SALESMANAGER)  and  not self.can(Permission.ADMINISTER)
 
+
+    #is_staff --> we allow   both  staff and administrator
     def is_staff(self):
+        #return self.can(Permission.STAFF) and not self.can(Permission.ADMINISTER)
         return self.can(Permission.STAFF)
+
+    def is_user(self):
+        return self.can(Permission.USUAL) and not self.can(Permission.ADMINISTER) \
+                and not self.can(Permission.STAFF) and not self.can(Permission.SALESMANAGER)
 
     def ping(self):
         self.last_seen = datetime.utcnow()
