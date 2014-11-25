@@ -1,1 +1,15 @@
-<h1>not implemented</h1>
+{% extends "base.html" %}
+
+{% block title %}EJILE{% endblock %}
+
+{% block page_content %}
+<ul>
+<li><a href="{{ url_for('salemanager.salesrestaurants') }}">manage restaurants</a></li>
+<li><a href="{{ url_for('salesmanager.unhandled_orders') }}">manage unhandled orders</a></li>
+</ul>
+
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+{% endblock %}

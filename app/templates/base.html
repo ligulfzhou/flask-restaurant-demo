@@ -38,16 +38,15 @@
                         Account <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
-                         
-                         {% if current_user.is_user() %}
-                         <li> <a href="{{ url_for('main.request_salesmanager') }}"></a>
-                            {% endif %}
                          {% if current_user.is_salesmanager()  %}
                         <li><a href="{{ url_for('salesmanager.index') }}">manage</a></li>
                         {% endif %}
-                        {% if current_user.can(Permission.STAFF) %}
+                        {% if current_user.is_staff() %}
                         <li><a href="{{ url_for('admin.index') }}">admin</a></li>
                         {% endif %}
+                         {% if current_user.is_user() %}
+                         <li> <a href="{{ url_for('main.request_salesmanager') }}">request_salesmanager</a></li>
+                            {% endif %}
                         <li><a href="{{ url_for('auth.change_password') }}">Change Password</a></li>
                         <li><a href="{{ url_for('auth.change_email_request') }}">Change Email</a></li>
                         <li><a href="{{ url_for('auth.logout') }}">Log Out</a></li>

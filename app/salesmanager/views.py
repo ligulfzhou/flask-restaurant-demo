@@ -25,7 +25,7 @@ def index():
         1: --> manage restaurants
         2: --> manage unhandled orders
     '''
-
+    
     return render_template('/salesmanager/index.html')
 
 
@@ -34,13 +34,9 @@ def index():
 @login_required
 @salesmanager_required
 def salesrestaurants():
-    '''
 
-
-
-    '''
     restaurants = current_user.restaurants
-    return render_template('/manage/restaurants.html', restaurants=restaurants)
+    return render_template('/salesmanager/restaurants.html', restaurants=restaurants)
 
 
 

@@ -51,21 +51,23 @@ class Role(db.Model):
 
 class User(UserMixin, db.Model):
     __tablename__ = 'users'
-    id              = db.Column(db.Integer, primary_key=True)
-    email           = db.Column(db.String(64), unique=True, index=True)
-    username        = db.Column(db.String(64), unique=True, index=True)
-    password_hash   = db.Column(db.String(128))
-    confirmed       = db.Column(db.Boolean, default=False)
-    name            = db.Column(db.String(64))
-    city            = db.Column(db.String(64)) 
-    about_me        = db.Column(db.Text())
-    member_since    = db.Column(db.DateTime(), default=datetime.utcnow)
-    last_seen       = db.Column(db.DateTime(), default=datetime.utcnow)
-    avatar_hash     = db.Column(db.String(32))
+    id                          = db.Column(db.Integer, primary_key=True)
+    email                       = db.Column(db.String(64), unique=True, index=True)
+    username                    = db.Column(db.String(64), unique=True, index=True)
+    password_hash               = db.Column(db.String(128))
+    confirmed                   = db.Column(db.Boolean, default=False)
+    name                        = db.Column(db.String(64))
+    city                        = db.Column(db.String(64)) 
+    about_me                    = db.Column(db.Text())
+    member_since                = db.Column(db.DateTime(), default=datetime.utcnow)
+    last_seen                   = db.Column(db.DateTime(), default=datetime.utcnow)
+    avatar_hash                 = db.Column(db.String(32))
 
-    role_id         = db.Column(db.Integer, db.ForeignKey('roles.id'))
-    orders          = db.relationship('Order', backref = 'customer', lazy = 'dynamic')
-    restaurants     = db.relationship('Restaurant', backref='owner', lazy = 'dynamic')
+    to_be_confirm_salesmanager  = db.Column(db.Boolean, default=False)
+    
+    role_id                     = db.Column(db.Integer, db.ForeignKey('roles.id'))
+    orders                      = db.relationship('Order', backref = 'customer', lazy = 'dynamic')
+    restaurants                 = db.relationship('Restaurant', backref='owner', lazy = 'dynamic')
 
     @staticmethod
     def generate_fake(count=100):

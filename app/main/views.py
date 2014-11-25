@@ -11,9 +11,6 @@ from ..decorators import admin_required, permission_required, staff_required, sa
 
 #maybe i should seperate the search page and the index page
 #
-#
-#
-
 #or maybe i must turn to the js for help
 
 
@@ -205,5 +202,18 @@ def checkout():
 @main.route('/request_salesmanager')
 @login_required
 def request_salesmanager():
+    return render_template('request_salesmanager.html')
 
-    return 
+
+@main.route('/request_salesmanager/<int:id>')
+@login_required
+def request_salesmanager_confirmed(id):
+    if not current_user.id == id:
+        return redirect(url_for('main.index'))
+    else:
+        role = Role.query.filter_by(name='Salesmanager').first()
+        current_user.role = role
+        current_user.to_be_confirm_salesmanager = True
+        db.session.add(current_user)
+        flash('your request for salesmanager role is sent, please wait pationt')
+        return redirect(url_for('main.index'))
