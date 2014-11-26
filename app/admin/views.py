@@ -9,20 +9,18 @@ from ..models import Permission, Role, User, Order, OrderItem, Restaurant, FoodI
 from ..decorators import admin_required, staff_required, salesmanager_required
 
 
-
-#	'''
 #										           / salesmanager 
 #										          /
 #		staff/admin can enable and disable user
 #										          \
 #										           \ user(normal)
 #
-#
 #   the grant permission is admin only ---- (implemented in the main directory /edit-profile/<id> )	
-#'''
+
 
 @admin.route('/')
 @login_required
 @staff_required
 def index():
 	return render_template('/admin/index.html')
+
