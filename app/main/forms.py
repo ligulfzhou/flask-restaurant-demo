@@ -44,7 +44,6 @@ class EditProfileAdminForm(Form):
             raise ValidationError('Username already in use.')
 
 
-class SearchRestaurantOrCity(Form):
-    cityorresname   = StringField('city or restaurantName', validators=[Required()])
-    radiobutton     = RadioField('', choices=[(1,'City'),(2,'restaurantName')])
-    submit          = SubmitField('search')
+class SearchRestaurantByCity(Form):
+    city        = StringField('city or restaurantName', validators=[Required()])
+    submit      = SubmitField('search')

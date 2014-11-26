@@ -266,6 +266,8 @@ class Order(db.Model):
     id              = db.Column(db.Integer, primary_key = True)
     total           = db.Column(db.Float)
     timestamp       = db.Column(db.DateTime, default=datetime.utcnow)
+
+    #users make order, waiting for the salesmanager to confirm
     done            = db.Column(db.Boolean, default=False)
 
     orderItems      = db.relationship('OrderItem', backref = 'order', lazy = 'dynamic')

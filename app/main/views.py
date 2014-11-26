@@ -3,7 +3,7 @@ from flask import render_template, redirect, url_for, abort, flash, request,\
 from flask.ext.login import login_required, current_user
 from flask.ext.sqlalchemy import get_debug_queries
 from . import main
-from .forms import EditProfileForm, EditProfileAdminForm, SearchRestaurantOrCity
+from .forms import EditProfileForm, EditProfileAdminForm, SearchRestaurantByCity
 from .. import db
 from ..models import Permission, Role, User, Restaurant, Order, OrderItem, FoodItem
 from ..decorators import admin_required, permission_required, staff_required, salesmanager_required
@@ -33,26 +33,15 @@ def index():
 
 
 
-#-----------------------------------------------------------
 @main.route('/search', methods=['GET','POST'])
 def search():
-    form = SearchRestaurantOrCity()
+    form = SearchRestaurantByCity()
     if form.validate_on_submit():
-        cityorname_data = form.cityorresname.data
-        cityorname = form.radiobutton.data
-        if cityorname == 1:
-            restaurants = Restaurant.query.filter_by(city=cityorname_data).all()
-        else:
-            restaurants = Restaurant.query.filter_by(name=cityorname).all()
-        return redirect(url_for('.result', restaurants=restaurants))
-
+        city = form.city.data
+        restaurants = Restaurant.query.filter_by(city=city).all()
+        return render_template('result.html', restaurants=restaurants)
     return render_template('search.html', form=form)
-#-----------------------------------------------------------
 
-
-@main.route('/result')
-def result():
-    render_template('result.html', restaurants=restaurants)
 
 
 @main.route('/user/<username>')
