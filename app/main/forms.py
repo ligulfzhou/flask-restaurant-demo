@@ -45,5 +45,5 @@ class EditProfileAdminForm(Form):
 
 
 class SearchRestaurantByCity(Form):
-    city        = StringField('city or restaurantName', validators=[Required()])
+    city        = StringField('city', validators=[Required()])
     submit      = SubmitField('search')

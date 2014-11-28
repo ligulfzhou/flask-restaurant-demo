@@ -1,0 +1,27 @@
+ 
+make-orders		---- this function is really important
+----to handle the session['cart'] list
+
+
+manager and admin
+----the manager page also depend on the make-orders function
+
+
+salesmanager
+	----restaurants list(manage restaurants)
+		----1:orders for the restaurant
+		----2:manage fooditems
+
+
+admin
+	----1:to handle the user request for the salesmanager roleship
+
+	----2:enable or disable users / restaurants
+
+	----3:edit users profile(it can also grant different roles to others)
+
+then it is all around
+
+
+i move the edit-profile/<int:id> to the admin domain, but in the main,
+	i haven`t deleted it yet

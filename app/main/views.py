@@ -183,10 +183,8 @@ def checkout():
             count = food_dict[item]
             orderItem = OrderItem(fooditem=fooditem)
 
+# to be implemented
 
-
-
-#                  --------------------------
 
 @main.route('/request_salesmanager')
 @login_required

@@ -1,6 +1,6 @@
 flask-restaurant
 ================
-this is the project for (  ) that i build it all by own.
+this is the project for (Da Chuang) that i build it all by own.
 
 IT IS STILL UNDER DEVELOPMENT
 
@@ -26,18 +26,16 @@ IT IS STILL UNDER DEVELOPMENT
 
 
 #TO MAKE IT RUN
-  add the environment
+  add the environment or set in the config.py file
     <export .....>
   
   virtualenv venv
-  cd venv
   source ./venv/bin/activate
   python manage.py shell
-    (
       db.create_all()
       Role.insert_roles()
       ...you can add some fake users(and restaurants, salesmanager, fooditems or so on)
-    )
+    
     
   python manage.py runserver
   
