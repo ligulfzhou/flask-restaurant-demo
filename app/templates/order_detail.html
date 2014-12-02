@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block page_content %}
+
+
+
+<div>the orderItems of this order</div>
+<div>
+
+
+{% include '_orderItems.html' %}
+
+
+</div>
+
+
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+{% endblock %}

@@ -4,6 +4,7 @@
         <div>{{ order.total }}</div>
         <div>{{ order.timestamp }}</div>
         <div>order, done? : {{ order.done }}</div>
+        <div>  <a href="{{ url_for('main.order_detail', id=order.id) }}">  order_detail  </a> </div>
     </li>
     {% endfor %}
 </ul>

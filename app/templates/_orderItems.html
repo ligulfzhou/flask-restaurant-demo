@@ -1,0 +1,9 @@
+<ul class="orderItems">
+    {% for orderItem in orderItems %}
+    <li class="orderItem">
+    	<div> <a href="{{url_for('main.fooditems', id=orderItem.foodItem.id)}}">   
+    		{{orderItem.foodItem.name }}</a>   </div>
+        <div>count: {{ orderItem.count }}</div>
+    </li>
+    {% endfor %}
+</ul>

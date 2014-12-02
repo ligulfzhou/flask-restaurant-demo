@@ -53,7 +53,6 @@ def salesrestaurant(id):
     return render_template('/salesmanager/restaurant.html', restaurant=restaurant, fooditems=fooditems)
 
 
-
 @salesmanager.route('/unhandledorders')
 @salesmanager_required
 @login_required

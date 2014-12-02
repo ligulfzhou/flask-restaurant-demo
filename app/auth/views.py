@@ -17,8 +17,12 @@ def before_request():
                 and request.endpoint[:5] != 'auth.' \
                 and request.endpoint != 'static':
             return redirect(url_for('auth.unconfirmed'))
+        
+        #if the user is request salesmanager and is not granted by the admin,
+        #sent redirect to salesmanager.ungranted
         if current_user.is_salesmanager() and current_user.to_be_confirm_salesmanager \
-                and request.endpoint[:13] == 'salesmanager.'
+                and request.endpoint[:13] == 'salesmanager.':
+            return render_template('salesmanager/ungranted.html')
 
 
 @auth.route('/unconfirmed')

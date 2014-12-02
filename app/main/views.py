@@ -223,3 +223,12 @@ def request_salesmanager_confirmed(id):
         db.session.add(current_user)
         flash('your request for salesmanager role is sent, please wait pationt')
         return redirect(url_for('main.index'))
+
+
+@main.route('/order_detail/<int:id>')
+@login_required
+def order_detail(id):
+    order       = Order.query.get_or_404(id)
+    orderItems  = order.orderItems
+    restaurant_name  = order.restaurant.name
+    return render_template('order_detail.html', orderItems=orderItems)

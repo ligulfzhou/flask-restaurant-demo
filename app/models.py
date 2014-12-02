@@ -258,8 +258,6 @@ def load_user(user_id):
 
 
 
-
-
 class Order(db.Model):
     __tablename__   = 'orders'
     id              = db.Column(db.Integer, primary_key = True)
@@ -309,9 +307,10 @@ class OrderItem(db.Model):
             'url' : url_for('api.get_orderItems', id=self.id, _external=True),
             'count' : self.count,
             'restaurant_id' : url_for('api.get_restaurant', id=self.restaurant_id, _external=True),
-            'user_id' : url_for('api.get_user', id=self.user_id, _external=True)
+            'foodItem_id' : url_for('api.get_foodItems', id=self.foodItem_id, _external=True),
+            'order_id' : url_for('api.get_order', id=self.order_id, _external=True)
         }
-
+        return json_orderitem
 
     def from_json(json_orderitem):
         count = json_orderitem.get('count'),
