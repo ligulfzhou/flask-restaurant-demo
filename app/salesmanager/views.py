@@ -94,3 +94,12 @@ def deletefood(id):
 @salesmanager_required
 def alterfood(id):
     fooditem    = FoodItem.query.filter_by(id=id).first()
+
+
+@salesmanager.route('/ungranted')
+@login_required
+@salesmanager_required
+def ungranted():
+    if current_user.to_be_confirm_salesmanager == False:
+        return redirect(url_for('main.index'))
+    return render_template('salesmanager/ungranted.html')
