@@ -3,6 +3,7 @@ from flask import render_template, redirect, url_for, abort, flash, request, \
 from flask.ext.login import login_required, current_user
 from flask.ext.sqlalchemy import get_debug_queries
 from . import admin
+from .forms import EditProfileAdminForm
 
 from .. import db
 from ..models import Permission, Role, User, Order, OrderItem, Restaurant, FoodItem
@@ -37,7 +38,20 @@ def edit_users_profile():
 @login_required
 @staff_required
 def handle_salesmanager_request():
-    return 
+    salesmanager_role = Role.query.filter_by(name='Salesmanager').first()
+    request_users = User.query.filter_by(to_be_confirm_salesmanager=True).filter_by(role=salesmanager_role).all()
+    return render_template('admin/handle_salesmanager_request.html', users=request_users)
+
+@admin.route('/grant_salesmanager_request/<int:id>')
+@admin_required
+@login_required
+def grant_salesmanager_request(id):
+    user = User.query.filter_by(id=id).first()
+    user.to_be_confirm_salesmanager = False
+    db.session.add(user)
+    db.session.commit()
+    return redirect(url_for('admin.handle_salesmanager_request'))
+
 
 @admin.route('/edit-profile/<int:id>', methods=['GET', 'POST'])
 @login_required

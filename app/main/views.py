@@ -9,10 +9,6 @@ from ..models import Permission, Role, User, Restaurant, Order, OrderItem, FoodI
 from ..decorators import admin_required, permission_required, staff_required, salesmanager_required
 
 
-#maybe i should seperate the search page and the index page
-#
-#or maybe i must turn to the js for help
-
 
 @main.route('/', methods=['GET', 'POST'])
 def index():
@@ -41,7 +37,6 @@ def search():
         restaurants = Restaurant.query.filter_by(city=city).all()
         return render_template('result.html', restaurants=restaurants)
     return render_template('search.html', form=form)
-
 
 
 @main.route('/user/<username>')
@@ -126,6 +121,7 @@ def fooditems(id):
     return render_template('fooditem.html', fooditem=fooditem)
 
 
+#is the data in session is ill-modifiable ??????
 @main.route('/add_to_cart/<int:id>')
 @login_required
 def add_to_cart(id):
@@ -133,11 +129,21 @@ def add_to_cart(id):
         use session to hold the fooditems of the cart
     '''
     if 'cart' in session:
-        session['cart'].append(id)
-        flash('you add one fooditem')
+        if id in session['cart']:
+            session['cart'][id]['count'] += 1
+        else:
+            fooditem = FoodItem.query.filter_by(id=id).first()
+            session['cart'][id] = {}
+            session['cart'][id]['name'] = fooditem.name
+            session['cart'][id]['price'] = fooditem.price
+            session['cart'][id]['count'] = 1
     else:
-        session['cart'] = []
-        session['cart'].append(id)
+        session['cart'] = {}
+        fooditem = FoodItem.query.filter_by(id=id).first()
+        session['cart'][id] = {}
+        session['cart'][id]['name'] = fooditem.name
+        session['cart'][id]['price'] = fooditem.price
+        session['cart'][id]['count'] = 1
 
     return redirect('/cart')
 
@@ -146,44 +152,57 @@ def add_to_cart(id):
 @login_required
 def cart():
     total_cost = 0
-    food_dict = {}
     if 'cart' in session:
-        cart_list = session['cart']
-        for item in cart_list:
-            fooditem    = FoodItem.query.filter_by(id=item).first()
-            total_cost  += fooditem.price
+        for id in session['cart']:
+            total_cost  += session['cart'][id]['price'] * session['cart'][id]['count']
 
-            if fooditem.id in food_dict:
-                food_dict[fooditem.id]['count'] += 1
-            else:
-                food_dict[fooditem.id] = {'count':1, 'price':fooditem.price, 'name':fooditem.name}
-    return render_template("cart.html", cart_items = food_dict, total = total_cost)
+    return render_template("cart.html", cart_items = session['cart'], total = total_cost)
 
 
 
 @main.route('/checkout')
 @login_required
 def checkout():
+    #    check whether it is empty
     '''
-        check whether it is empty
+        this function maybe is the most important function, it build the relationship between the
+        tables  -- Orders table, foodItem table, Restaurant table, User table and OrderItem table
+
+        with this function build correctly,
+            other operation like restaurant manager confirm the order is received, 
+                user confirm received the orderitems of the order......etc
+                just to modify the table "ziduan"
+                    like : restaurant manager confirm the order is received
+                                by make the order "ziduan" done -- from False to True
+
     '''
     if 'cart' not in session:
         flash('empty cart')
         redirect('.index')
     else:
-        food_dict = {}
-        cart_list = session['cart']
-        for item in cart_list:
-            if item in food_dict:
-                food_dict[item] += 1
-            else:
-                food_dict[item] = 1
-        for item in food_dict:
-            fooditem = FoodItem.query.filter_by(id=item).first()
-            count = food_dict[item]
-            orderItem = OrderItem(fooditem=fooditem)
+        total_cost = 0
+        res = None
+        if 'cart' in session:
+            for id in session['cart']:
+                if res == None:
+                    fooditem = FoodItem.query.filter_by(id=id).first()
+                    res = Restaurant.query.filter_by(id=fooditem.restaurant.id).first()
 
-# to be implemented
+                total_cost  += session['cart'][id]['price'] * session['cart'][id]['count']
+
+        order = Order(user=current_user, total=total_cost, restaurant=res)
+        db.session.add(order)
+
+        if 'cart' in session:
+            for id in session['cart']:
+                fooditem = FoodItem.query.filter_by(id=id).first()
+                orderItem = OrderItem(count=session['cart'][id]['count'], \
+                            foodItem=fooditem, restaurant=res, order=order)
+                db.session.add(orderItem)
+
+    db.session.commit()
+    session['cart'] = {}
+    return redirect(url_for('main.index'))
 
 
 @main.route('/request_salesmanager')

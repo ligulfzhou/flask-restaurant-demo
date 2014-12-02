@@ -1,0 +1,10 @@
+<ul class="users">
+    {% for user in users %}
+    <li class="order">
+        <div>username: {{ user.username }}</div>
+        <div>name: {{ user.name }}</div>
+        <div><a href="{{ url_for('admin.edit_profile_admin', id = user.id) }}"> edit profile</a> </div>
+        <div><a href="{{url_for('admin.grant_salesmanager_request', id = user.id)}}">grant salesmanager request</a></div>
+    </li>
+    {% endfor %}
+</ul>

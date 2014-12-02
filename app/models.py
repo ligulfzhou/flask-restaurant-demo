@@ -66,8 +66,8 @@ class User(UserMixin, db.Model):
     to_be_confirm_salesmanager  = db.Column(db.Boolean, default=False)
     
     role_id                     = db.Column(db.Integer, db.ForeignKey('roles.id'))
-    orders                      = db.relationship('Order', backref = 'customer', lazy = 'dynamic')
-    restaurants                 = db.relationship('Restaurant', backref='owner', lazy = 'dynamic')
+    orders                      = db.relationship('Order', backref = 'user', lazy = 'dynamic')
+    restaurants                 = db.relationship('Restaurant', backref='user', lazy = 'dynamic')
 
     @staticmethod
     def generate_fake(count=100):
