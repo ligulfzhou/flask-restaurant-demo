@@ -17,6 +17,8 @@ def before_request():
                 and request.endpoint[:5] != 'auth.' \
                 and request.endpoint != 'static':
             return redirect(url_for('auth.unconfirmed'))
+        if current_user.is_salesmanager() and current_user.to_be_confirm_salesmanager \
+                and request.endpoint[:13] == 'salesmanager.'
 
 
 @auth.route('/unconfirmed')
