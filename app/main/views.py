@@ -177,6 +177,10 @@ def checkout():
 @main.route('/request_salesmanager')
 @login_required
 def request_salesmanager():
+    if current_user.to_be_confirm_salesmanager == True:
+        flash('you have already request the salesmanager role, please wait patiently')
+        return redirect(url_for('main.index'))
+
     return render_template('request_salesmanager.html')
 
 
@@ -186,8 +190,6 @@ def request_salesmanager_confirmed(id):
     if not current_user.id == id:
         return redirect(url_for('main.index'))
     else:
-        role = Role.query.filter_by(name='Salesmanager').first()
-        current_user.role = role
         current_user.to_be_confirm_salesmanager = True
         db.session.add(current_user)
         flash('your request for salesmanager role is sent, please wait pationt')
@@ -199,5 +201,4 @@ def request_salesmanager_confirmed(id):
 def order_detail(id):
     order       = Order.query.get_or_404(id)
     orderItems  = order.orderItems
-    restaurant_name  = order.restaurant.name
     return render_template('order_detail.html', orderItems=orderItems)

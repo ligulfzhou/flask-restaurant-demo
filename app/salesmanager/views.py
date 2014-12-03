@@ -88,7 +88,7 @@ def unhandled_orders():
         every order add a link, to trigger a /handle_order/<orderid>/done
     '''
     
-    return 
+    return 'to be complete'
 
 
 #---------------check order is made by user-----------------
