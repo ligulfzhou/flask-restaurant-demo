@@ -1,10 +1,13 @@
 <ul class="fooditems">
     {% for fooditem in fooditems %}
     <li class="fooditem">
-    	<div> <a href="{{ url_for('main.fooditems', id=fooditem.id ) }}">  
-    		{{ fooditem.name }} </a></div>
+    	<div>fooditem name : {{ fooditem.name }}</div>
         <div>fooditem price : {{ fooditem.price }}</div>
         <div>fooditem description : {{ fooditem.description }}</div>
+        <div>
+      		<a href="{{ url_for('salesmanager.delete_fooditem', id=fooditem.id) }}"> <button>delete</button> </a>
+        	<a href="{{ url_for('salesmanager.alter_fooditem', id=fooditem.id) }}"> <button>modify</button> </a>
+        </div>
     </li>
     {% endfor %}
 </ul>

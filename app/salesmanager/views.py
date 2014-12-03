@@ -60,7 +60,7 @@ def salesrestaurant(id):
     ''' this restaurant page to handle fooditem upload'''
     form = FoodItemForm()
 
-    restaurant      = Restaurant.query.filter_by(id=id).first()
+    restaurant      = Restaurant.query.get_or_404(id)
     fooditems       = restaurant.foodItems
 
     if form.validate_on_submit():
@@ -149,20 +149,43 @@ def alter_restaurant(id):
 @salesmanager.route('/fooditem/<id>/delete')
 @salesmanager_required
 @login_required
-def deletefood(id):
-    fooditem    = FoodItem.query.filter_by(id=id).first()
+def delete_fooditem(id):
+    fooditem    = FoodItem.query.get_or_404(id)
+    if fooditem.restaurant.user != current_user:
+        flash('you do not have the permission -- for the fooditem is not your restaurant`s ')
+        return redirect(url_for('main.index'))
     db.session.delete(fooditem)
     db.session.commit()
-    return redirect(url_for('salesmanager.salesrestaurants'))
+    return redirect(url_for('salesmanager.salesrestaurant', id=fooditem.restaurant.id))
 
 
 
 #---------------alter fooditem-------------------------------
-@salesmanager.route('/fooditem/<id>/alter')
+@salesmanager.route('/fooditem/<id>/alter', methods=['GET','POST'])
 @login_required
 @salesmanager_required
-def alterfood(id):
-    fooditem    = FoodItem.query.filter_by(id=id).first()
+def alter_fooditem(id):
+
+    form = FoodItemForm()
+
+    fooditem    = FoodItem.query.get_or_404(id)
+    if fooditem.restaurant.user != current_user:
+        flash('you do not have the permission -- for the fooditem is not your restaurant`s')
+        return redirect(url_for('main.index'))
+
+    if form.validate_on_submit():
+        fooditem.price          = form.price.data
+        fooditem.name           = form.name.data
+        fooditem.description    = form.description.data
+
+        db.session.add(fooditem)
+        flash('you alter your fooditem successfully')
+        return redirect(url_for('salesmanager.salesrestaurant', id=fooditem.restaurant.id))
+    form.name.data          = fooditem.name
+    form.price.data         = fooditem.price
+    form.description.data   = fooditem.description
+    return render_template('salesmanager/alter_fooditem.html', form=form)
+
 
 
 @salesmanager.route('/ungranted')
