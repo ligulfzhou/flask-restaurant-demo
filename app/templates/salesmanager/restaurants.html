@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+
+{% block title %}EJILE{% endblock %}
+
+{% block page_content %}
+
+<div><h2>manage your restaurants</h2></div>
+{% include 'salesmanager/_restaurants.html' %}
+
+
+<div><h2>add restaurant</h2></div>
+<div class="col-md-3">
+    {{ wtf.quick_form(form) }}
+</div>
+
+
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+{% endblock %}

@@ -204,7 +204,6 @@ class User(UserMixin, db.Model):
             url=url, hash=hash, size=size, default=default, rating=rating)
 
 
-
     def to_json(self):
         json_user = {
             'url': url_for('api.get_user', id=self.id, _external=True),
@@ -232,6 +231,7 @@ class User(UserMixin, db.Model):
 
     def __repr__(self):
         return '<User %r>' % self.username
+
 
 
 class AnonymousUser(AnonymousUserMixin):
@@ -293,6 +293,7 @@ class Order(db.Model):
                 restaurant_id=restaurant_id)
 
 
+
 class OrderItem(db.Model):
     __tablename__   = 'orderItems'
     id              = db.Column(db.Integer, primary_key = True)
@@ -320,6 +321,7 @@ class OrderItem(db.Model):
         return OrderItem(count=count,restaurant_id=restaurant_id,foodItem_id=foodItem_id)
 
 
+
 class FoodItem(db.Model):
     __tablename__   = 'foodItems'
     id              = db.Column(db.Integer, primary_key = True) 
@@ -340,6 +342,8 @@ class FoodItem(db.Model):
             'description' : self.description
         }
         return json_foodItem
+
+
 
 class Restaurant(db.Model):
     __tablename__   = 'restaurants'

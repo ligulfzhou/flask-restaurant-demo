@@ -3,11 +3,10 @@ from flask import render_template, redirect, url_for, abort, flash, request,\
 from flask.ext.login import login_required, current_user
 from flask.ext.sqlalchemy import get_debug_queries
 from . import main
-from .forms import EditProfileForm, EditProfileAdminForm, SearchRestaurantByCity
+from .forms import EditProfileForm, SearchRestaurantByCity
 from .. import db
 from ..models import Permission, Role, User, Restaurant, Order, OrderItem, FoodItem
 from ..decorators import admin_required, permission_required, staff_required, salesmanager_required
-
 
 
 @main.route('/', methods=['GET', 'POST'])
@@ -74,37 +73,6 @@ def edit_profile():
     form.city.data = current_user.city
     form.about_me.data = current_user.about_me
     return render_template('edit_profile.html', form=form)
-
-
-@main.route('/edit-profile/<int:id>', methods=['GET', 'POST'])
-@login_required
-@admin_required
-def edit_profile_admin(id):
-    '''
-        admin can edit everybody's profile 
-        admin can also grant staff...and other roles to him
-    '''
-    user = User.query.get_or_404(id)
-    form = EditProfileAdminForm(user=user)
-    if form.validate_on_submit():
-        user.email = form.email.data
-        user.username = form.username.data
-        user.confirmed = form.confirmed.data
-        user.role = Role.query.get(form.role.data)
-        user.name = form.name.data
-        user.city = form.city.data
-        user.about_me = form.about_me.data
-        db.session.add(user)
-        flash('The profile has been updated.')
-        return redirect(url_for('.user', username=user.username))
-    form.email.data = user.email
-    form.username.data = user.username
-    form.confirmed.data = user.confirmed
-    form.role.data = user.role_id
-    form.name.data = user.name
-    form.city.data = user.city
-    form.about_me.data = user.about_me
-    return render_template('edit_profile.html', form=form, user=user)
 
 
 @main.route('/restaurants/<id>')
@@ -202,6 +170,7 @@ def checkout():
 
     db.session.commit()
     session['cart'] = {}
+    flash('your order is submitted, please wait patiently for salesmanager to send you the food.')
     return redirect(url_for('main.index'))
 
 
