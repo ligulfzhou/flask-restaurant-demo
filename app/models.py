@@ -2,8 +2,6 @@ from datetime import datetime
 import hashlib
 from werkzeug.security import generate_password_hash, check_password_hash
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
-from markdown import markdown
-import bleach
 from flask import current_app, request, url_for
 from flask.ext.login import UserMixin, AnonymousUserMixin
 from app.exceptions import ValidationError
@@ -353,7 +351,7 @@ class Restaurant(db.Model):
     description     = db.Column(db.Text)
     imageurl        = db.Column(db.Text)
 
-    foodItems       = db.relationship('FoodItem', backref = 'restaurant', lazy = 'dymamic')
+    foodItems       = db.relationship('FoodItem', backref = 'restaurant', lazy = 'dynamic')
     orderItems      = db.relationship('OrderItem', backref = 'restaurant', lazy = 'dynamic')
     user_id         = db.Column(db.Integer, db.ForeignKey('users.id'))
     orders          = db.relationship('Order', backref='restaurant', lazy='dynamic')
