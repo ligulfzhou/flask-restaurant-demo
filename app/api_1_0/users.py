@@ -9,6 +9,10 @@ def get_user(id):
     return jsonify(user.to_json())
 
 
+##
+#  return paginated user`s orders
+##
+
 @api.route('/users/<int:id>/orders')
 def get_user_orders(id):
 	user = User.query.get_or_404(id)

@@ -1,4 +1,6 @@
 {% extends "base.html" %}
+{% block title %}Ejile - {{ fooditem.name }}}{% endblock %}
+
 {% block page_content %}
 
 
@@ -8,7 +10,7 @@
 <div> <a href="{{url_for('.add_to_cart', id=fooditem.id)}}"> <button>add to cart </button></a>
 <div> <a href="{{url_for('.restaurants', id=fooditem.restaurant.id)}}"> <button>return to this restaurant</button></a>
 
-<h2>   the comments need to be implemented  </h2>
+<h2>  the comments need to be implemented  </h2>
 
 {% endblock %}
 

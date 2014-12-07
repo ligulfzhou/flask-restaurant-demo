@@ -28,6 +28,7 @@ def get_order_orderItems(id):
 #
 
 #make order must least have the usual permission
+#actually, all kinds of users has the usual permission
 
 @api.route('/orders', methods=['POST'])
 @permission_required(Permission.USUAL)

@@ -3,6 +3,9 @@ from flask import g
 from .errors import forbidden
 
 
+#
+# actually, it is no use
+#
 def permission_required(permission):
     def decorator(f):
         @wraps(f)

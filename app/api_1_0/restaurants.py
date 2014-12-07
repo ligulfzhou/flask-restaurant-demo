@@ -4,6 +4,11 @@ from . import api
 from ..models import Restaurant, User, FoodItem, OrderItem, Order, OrderItem
 from .decorators import permission_required
 
+
+##
+# return paginated data
+##
+
 @api.route('/restaurants')
 def get_restaurants():
 	page = request.args.get('page', 1, type=int)
