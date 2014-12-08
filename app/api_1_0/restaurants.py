@@ -37,6 +37,7 @@ def get_restaurant(id):
 	return jsonify(restaurant.to_json())
 
 
+#should paginated
 @api.route('/restaurants/<int:id>/foodItems')
 def get_restaurant_foodItems(id):
 	restaurant 	= Restaurant.query.get_or_404(id)
@@ -46,7 +47,8 @@ def get_restaurant_foodItems(id):
 			'foodItems' : [foodItem.to_json() for foodItem in foodItems]
 		})
 
-
+#should paginated
+#but it is really needed
 @api.route('/restaurants/<int:id>/orderItems')
 def get_restaurant_orderItems(id):
 	restaurant 	= Restaurant.query.get_or_404(id)
@@ -56,7 +58,7 @@ def get_restaurant_orderItems(id):
 			'orderItems' : [orderItem.to_json() for orderItem in orderItems]
 		})
 
-
+#should paginated
 @api.route('/restaurants/<int:id>/orders')
 def get_restaurant_orders(id):
 	restaurant 	= Restaurant.query.get_or_404(id)

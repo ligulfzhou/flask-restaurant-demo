@@ -326,7 +326,7 @@ class FoodItem(db.Model):
     price           = db.Column(db.Float)
     imageurl        = db.Column(db.Text)
     name            = db.Column(db.String(64))
-    description      = db.Column(db.Text)
+    description     = db.Column(db.Text)
 
     orderItems      = db.relationship('OrderItem', backref = 'foodItem', lazy = 'dynamic')
     restaurant_id   = db.Column(db.Integer, db.ForeignKey('restaurants.id'))

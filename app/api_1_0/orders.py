@@ -12,7 +12,7 @@ def get_order(id):
 	return jsonify(order.to_json())
 
 
-
+#should paginated
 @api.route('/orders/<int:id>/orderitems')
 def get_order_orderItems(id):
 	order 		= Order.query.get_or_404(id)
