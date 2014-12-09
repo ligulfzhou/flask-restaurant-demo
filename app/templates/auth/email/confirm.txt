@@ -1,6 +1,6 @@
 Dear {{ user.username }},
 
-Welcome to Flasky!
+Welcome to Ejile!
 
 To confirm your account please click on the following link:
 
