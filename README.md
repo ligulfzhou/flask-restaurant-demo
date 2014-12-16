@@ -1,8 +1,6 @@
 flask-restaurant
 ================
-this is the project for (Da Chuang) that i build it all by own.
-
-#IT IS STILL UNDER DEVELOPMENT
+this is the project for (Da Chuang) that i build it all by own.(IT IS STILL UNDER DEVELOPMENT)
 
 #it is build with python/flask
 
@@ -41,19 +39,22 @@ this is the project for (Da Chuang) that i build it all by own.
 
   1. add the environment
 
-     export MAIL_USERNAME='gmail account'
-     export MAIL_PASSWORD='password for gmail accout'
-     export EJILE_ADMIN='the admin email'
-     export SECRET_KEY='your secret_key here'
-   or set in the config.py file
+     1. export MAIL_USERNAME='gmail account'
+     2. export MAIL_PASSWORD='password for gmail accout'
+     3. export EJILE_ADMIN='the admin email'
+     4. export SECRET_KEY='your secret_key here'
+   
+	or set in the config.py file
   
-  2. virtualenv venv
-     source ./venv/bin/activate
-     python manage.py shell
+  2. 
+	
+	 1. virtualenv venv
+     2. source ./venv/bin/activate
+     3. python manage.py shell
        
-       db.create_all()
-       Role.insert_roles()
-       you can add some fake users(and restaurants, salesmanager, fooditems or so on)
+       1. db.create_all()
+       2. Role.insert_roles()
+       3. you can add some fake users(and restaurants, salesmanager, fooditems or so on)
     
   3. python manage.py runserver
 
