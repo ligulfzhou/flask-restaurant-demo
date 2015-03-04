@@ -137,7 +137,7 @@ def checkout():
         tables  -- Orders table, foodItem table, Restaurant table, User table and OrderItem table
 
         with this function build correctly,
-            other operation like restaurant manager confirm the order is received, 
+            other operation like restaurant manager confirm that the order is received, 
                 user confirm received the orderitems of the order......etc
                 just to modify the table "ziduan"
                     like : restaurant manager confirm the order is received
@@ -169,6 +169,7 @@ def checkout():
                 db.session.add(orderItem)
 
     db.session.commit()
+    #should use pop  ?
     session['cart'] = {}
     flash('your order is submitted, please wait patiently for salesmanager to send you the food.')
     return redirect(url_for('main.index'))
