@@ -37,7 +37,7 @@ this is the project for (Da Chuang) that i build it all by own.(IT IS STILL UNDE
 
 ##setup
 
- * add the environment
+ * add the environment(like /etc/profile etc.) or set in the config.py file
   
 ```shell
         export MAIL_USERNAME='gmail account' 
@@ -45,10 +45,10 @@ this is the project for (Da Chuang) that i build it all by own.(IT IS STILL UNDE
         export EJILE_ADMIN='the admin email' 
         export SECRET_KEY='your secret_key here' 
 ```
+ 
+ * Then
 
-	  
- * or set in the config.py file 
-  
+
 ```shell
         virtualenv venv
         source ./venv/bin/activate
